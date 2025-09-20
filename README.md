@@ -52,6 +52,8 @@ python3 bebrave_macos.py
 
 ### Using the GUI
 
+![](screenshot.png)
+
 1. **Status Banner**: The top banner shows the application is ready to configure Brave Browser preferences
 
 2. **Current Settings**: The app automatically reads your existing Brave preferences and shows checkmarks for currently enabled features
