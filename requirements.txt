@@ -1,0 +1,5 @@
+# No external dependencies required - uses only Python standard library
+# tkinter (included with Python)
+# subprocess (included with Python)
+# json (included with Python)
+# os (included with Python)
