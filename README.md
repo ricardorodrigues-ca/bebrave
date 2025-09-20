@@ -36,7 +36,6 @@ BeBrave is a powerful Python script designed for macOS users to streamline their
 
 - macOS
 - Python 3.x (with tkinter support)
-- Administrator privileges (sudo) for applying changes
 
 ## Installation
 
@@ -48,18 +47,12 @@ BeBrave is a powerful Python script designed for macOS users to streamline their
 ### Running the Application
 
 ```bash
-# For viewing current settings (read-only)
 python3 bebrave_macos.py
-
-# For making changes (requires sudo)
-sudo python3 bebrave_macos.py
 ```
 
 ### Using the GUI
 
-1. **Permission Banner**: The top banner indicates whether you have sufficient privileges
-   - Red banner: Read-only mode (run with sudo to make changes)
-   - Green banner: Administrator mode (can apply changes)
+1. **Status Banner**: The top banner shows the application is ready to configure Brave Browser preferences
 
 2. **Select Features**: Choose from organized categories:
    - Telemetry & Reporting
@@ -77,12 +70,11 @@ sudo python3 bebrave_macos.py
 
 ### Configuration Storage
 
-Settings are stored in `/Library/Managed Preferences/com.brave.Browser.plist` using macOS defaults system.
+Settings are stored in `~/Library/Preferences/com.brave.Browser.plist` using macOS defaults system.
 
 ## Important Notes
 
 - **Restart Required**: Restart Brave Browser after applying changes
-- **Administrator Access**: Sudo privileges required to modify browser policies
 - **Backup Recommended**: Consider exporting current settings before major changes
 - **Reset Option**: "Reset All" button removes all custom policies and restores defaults
 
@@ -95,7 +87,6 @@ Settings are stored in `/Library/Managed Preferences/com.brave.Browser.plist` us
 
 ## Troubleshooting
 
-- **Permission Denied**: Ensure you're running with `sudo python3 bebrave_macos.py`
 - **Changes Not Applied**: Restart Brave Browser completely
 - **Restore Defaults**: Use "Reset All" button or manually delete the plist file
 

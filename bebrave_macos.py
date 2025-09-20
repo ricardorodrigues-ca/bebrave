@@ -6,8 +6,8 @@ import subprocess
 import json
 import os
 
-PLIST = "/Library/Managed Preferences/com.brave.Browser.plist"
-NEEDS_SUDO = os.geteuid() != 0
+PLIST = os.path.expanduser("~/Library/Preferences/com.brave.Browser.plist")
+NEEDS_SUDO = False  # No longer need sudo for user preferences
 
 FEATURES = [
     ("Telemetry & Reporting", [
@@ -75,13 +75,9 @@ class BeBraveApp:
         main_frame.pack(fill="both", expand=True)
 
         # --- Banner at the top ---
-        banner_text = (
-            "Not running as root! Please run with sudo to make changes."
-            if NEEDS_SUDO
-            else "Running with root privileges (sudo)"
-        )
-        banner_bg = "#ffcccc" if NEEDS_SUDO else "#d4f7d4"
-        banner_fg = "#a00000" if NEEDS_SUDO else "#006600"
+        banner_text = "Ready to configure Brave Browser preferences"
+        banner_bg = "#d4f7d4"
+        banner_fg = "#006600"
         banner = tk.Label(
             main_frame,
             text=banner_text,
@@ -169,10 +165,6 @@ class BeBraveApp:
             self.select_all_var.set(all_selected)
 
     def apply_settings(self):
-        if NEEDS_SUDO:
-            messagebox.showerror("Root Required", "You must run this script as root (sudo) to modify Brave policies.\nTry: sudo python3 bebrave_macos.py")
-            return
-
         for key, (var, feat) in self.checkbox_vars.items():
             if var.get():
                 self.write_setting(feat[1], feat[2], feat[3])
@@ -186,9 +178,6 @@ class BeBraveApp:
         messagebox.showinfo("Success", "Settings applied! Restart Brave to see changes.")
 
     def reset_all(self):
-        if NEEDS_SUDO:
-            messagebox.showerror("Root Required", "You must run this script as root (sudo) to modify Brave policies.\nTry: sudo python3 bebrave_macos.py")
-            return
         if messagebox.askyesno("Reset All", "Erase ALL Brave policy settings and restore defaults?"):
             if os.path.exists(PLIST):
                 subprocess.run(["rm", "-f", PLIST])
