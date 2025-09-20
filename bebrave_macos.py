@@ -134,6 +134,9 @@ class BeBraveApp:
         tk.Button(controls, text="Export", command=self.export_settings).pack(side="left", padx=5)
         tk.Button(controls, text="Import", command=self.import_settings).pack(side="left", padx=5)
 
+        # Load existing settings after UI is created
+        self.load_existing_settings()
+
     def _scrollable_section(self, parent, title):
         outer = tk.Frame(parent, relief="groove", borderwidth=2)
         tk.Label(outer, text=title, font=("Helvetica", 12, "bold"), fg="#E07A5F").pack(anchor="w", pady=4, padx=6)
@@ -225,6 +228,52 @@ class BeBraveApp:
             subprocess.run(["defaults", "delete", PLIST, key], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             args = ["defaults", "write", PLIST, key, "-array"] + list(map(str, value))
             subprocess.run(args)
+
+    def load_existing_settings(self):
+        """Load existing plist settings and update UI checkboxes"""
+        if not os.path.exists(PLIST):
+            return
+
+        for key, (var, feat) in self.checkbox_vars.items():
+            current_value = self.read_setting(key, feat[3])
+            if current_value is not None:
+                # Check if current value matches the "enabled" value for this feature
+                expected_value = feat[2]  # The value we set when enabling this feature
+                if current_value == expected_value:
+                    var.set(True)
+
+        # Load DNS setting
+        dns_value = self.read_setting("DnsOverHttpsMode", "string")
+        if dns_value and dns_value in DNS_MODES:
+            self.dns_mode.set(dns_value)
+
+        # Update select_all checkbox state after loading
+        all_selected = all(var.get() for var, _ in self.checkbox_vars.values())
+        self.select_all_var.set(all_selected)
+
+    def read_setting(self, key, typ):
+        """Read a setting from the plist file"""
+        try:
+            result = subprocess.run(
+                ["defaults", "read", PLIST, key],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            value_str = result.stdout.strip()
+
+            if typ == "bool":
+                return value_str == "1"
+            elif typ == "int":
+                return int(value_str)
+            elif typ == "string":
+                return value_str
+            elif typ == "array":
+                # For arrays, we'll do a simple check if it exists and has content
+                return len(value_str) > 0 and value_str != "()"
+        except (subprocess.CalledProcessError, ValueError):
+            # Setting doesn't exist or can't be read
+            return None
 
     def delete_setting(self, key):
         subprocess.run(["defaults", "delete", PLIST, key], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

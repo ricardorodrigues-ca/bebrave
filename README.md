@@ -54,19 +54,21 @@ python3 bebrave_macos.py
 
 1. **Status Banner**: The top banner shows the application is ready to configure Brave Browser preferences
 
-2. **Select Features**: Choose from organized categories:
+2. **Current Settings**: The app automatically reads your existing Brave preferences and shows checkmarks for currently enabled features
+
+3. **Select Features**: Choose from organized categories:
    - Telemetry & Reporting
    - Privacy & Security
    - Brave Features
    - Performance & Bloat
 
-3. **Bulk Selection**: Use "Select All" checkbox for quick configuration
+4. **Bulk Selection**: Use "Select All" checkbox for quick configuration
 
-4. **DNS Configuration**: Choose DNS over HTTPS mode from dropdown
+5. **DNS Configuration**: Choose DNS over HTTPS mode from dropdown (current setting is automatically loaded)
 
-5. **Apply Changes**: Click "Apply Settings" to write configuration to Brave
+6. **Apply Changes**: Click "Apply Settings" to write configuration to Brave
 
-6. **Export/Import**: Save your configuration or load previously saved settings
+7. **Export/Import**: Save your configuration or load previously saved settings
 
 ### Configuration Storage
 
