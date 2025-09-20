@@ -99,6 +99,14 @@ Settings are stored in `/Library/Managed Preferences/com.brave.Browser.plist` us
 - **Changes Not Applied**: Restart Brave Browser completely
 - **Restore Defaults**: Use "Reset All" button or manually delete the plist file
 
+## Copyright Notice
+
+**Brave**, **Brave Browser**, and the **Brave lion head logo** are trademarks and copyrights of Brave Software, Inc. This project is an independent, unofficial tool and is not affiliated with, endorsed by, or sponsored by Brave Software, Inc.
+
+This tool interacts with Brave Browser through official policy mechanisms and does not modify the browser application itself.
+
 ## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 This project is provided as-is for educational and privacy configuration purposes.
